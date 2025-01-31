@@ -7,6 +7,12 @@ output "iam_role_id" {
 }
 
 output "iam_policies" {
-  value = { for name, policy in aws_iam_policy.s3_policies : name => policy.arn }
+  value = {
+    s3_list_access = aws_iam_policy.s3_list_access.arn
+    s3_read_access = aws_iam_policy.s3_read_access.arn
+  }
 }
 
+output "remote_state_content" {
+  value = data.terraform_remote_state.backend.outputs
+}
